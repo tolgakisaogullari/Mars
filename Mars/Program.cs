@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Mars.Common;
+using Mars.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +18,8 @@ namespace Mars
 
         static void Main(string[] args)
         {
+            var service = new CommandService();
+
             while (true)
             {
                 BeginningProcessStart(out int xRange, out int yRange, out int startX, out int startY, out string startDirection, out List<char> commands);
@@ -46,66 +50,24 @@ namespace Mars
                     Direction = robotDirection
                 };
 
-                ProcessCommands(robot, plateau, commands);
+                var result = service.Run(robot, plateau, commands);
+
+                ProcessCommandRunResult(result, robot);
             }
         }
 
-        /// <summary>
-        /// Process Nasa commands from earth
-        /// </summary>
-        private static void ProcessCommands(Robot robot, Plateau plateau, List<char> commands)
+        private static void ProcessCommandRunResult(ServiceResult result, Robot robot)
         {
-            foreach (var command in commands)
+            if (!result.Status)
             {
-                switch (char.ToUpper(command))
-                {
-                    case 'M':
-                        {
-                            if (robot.Coordinate.ForbiddenDirections.Contains(robot.Direction))
-                            {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine($"The coordinate that you want to move on is out of Mars so you can not move further on {robot.Direction.GetDisplayName()} side.");
-                                break;
-                            }
-
-                            robot.Coordinate.UpdateCordinateByDirection(robot.Direction);
-
-                            robot.Coordinate.SetForbiddenDirectionsForCoordinate(plateau.XRange, plateau.YRange);
-
-                            break;
-                        }
-                    case 'L':
-                        {
-                            var newDirection = (int)robot.Direction - 90;
-
-                            if (newDirection == -90)
-                            {
-                                newDirection = 270;
-                            }
-
-                            robot.Direction = (Direction)newDirection;
-                            break;
-                        }
-                    case 'R':
-                        {
-                            var newDirection = (int)robot.Direction + 90;
-
-                            if (newDirection == 360)
-                            {
-                                newDirection = 0;
-                            }
-
-                            robot.Direction = (Direction)newDirection;
-                            break;
-                        }
-                    default:
-                        break;
-                }
-
-
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine(result.Message);
             }
-
-            Console.WriteLine($"{robot.Coordinate.X} {robot.Coordinate.Y} {_directionWithSymbol.FirstOrDefault(x => x.Value == robot.Direction).Key}");
+            else
+            {
+                Console.BackgroundColor = ConsoleColor.Green;
+                Console.WriteLine($"{robot.Coordinate.X} {robot.Coordinate.Y} {_directionWithSymbol.FirstOrDefault(x => x.Value == robot.Direction).Key}");
+            }
         }
 
         /// <summary>
@@ -113,16 +75,14 @@ namespace Mars
         /// </summary>
         private static void BeginningProcessStart(out int xRange, out int yRange, out int startX, out int startY, out string startDirection, out List<char> commands)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Please give any X and Y numbers separated by space for Mars surface area.");
 
-            Console.ForegroundColor = ConsoleColor.Yellow;
             var xAndyRangeAsString = Console.ReadLine();
 
             xRange = Convert.ToInt32(xAndyRangeAsString.Split(" ")[0]);
             yRange = Convert.ToInt32(xAndyRangeAsString.Split(" ")[1]);
 
-            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("Please give coordinate numbers and direction values separated by space for Rover.");
             var roverBeginningInfo = Console.ReadLine();
 
@@ -130,7 +90,6 @@ namespace Mars
             startY = Convert.ToInt32(roverBeginningInfo.Split(" ")[1]);
             startDirection = roverBeginningInfo.Split(" ")[2].ToUpper();
 
-            Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("Please give your commands for Rover.");
             commands = Console.ReadLine().ToCharArray().ToList();
         }
