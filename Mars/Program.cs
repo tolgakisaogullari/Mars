@@ -1,4 +1,5 @@
-﻿using Mars.Common;
+﻿using Autofac;
+using Mars.Common;
 using Mars.Services;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,16 @@ namespace Mars
             { "E", Direction.East },
             { "S", Direction.South }
         };
+        private static IContainer _container;
 
         static void Main(string[] args)
         {
-            var service = new CommandService();
+            _container = IocService.GetContainer();
 
-            while (true)
+            using (ILifetimeScope scope = _container.BeginLifetimeScope())
             {
+                var commandService = scope.Resolve<ICommandService>();
+
                 BeginningProcessStart(out int xRange, out int yRange, out int startX, out int startY, out string startDirection, out List<char> commands);
 
                 var plateau = new Plateau(xRange, yRange);
@@ -37,7 +41,7 @@ namespace Mars
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("You can not move to the coordinate which is out of Mars!");
-                    continue;
+                    return;
                 }
 
                 var robotDirection = _directionWithSymbol
@@ -50,7 +54,7 @@ namespace Mars
                     Direction = robotDirection
                 };
 
-                var result = service.Run(robot, plateau, commands);
+                var result = commandService.Run(robot, plateau, commands);
 
                 ProcessCommandRunResult(result, robot);
             }

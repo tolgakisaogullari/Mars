@@ -15,10 +15,5 @@
         {
             return new ServiceResult { Status = true };
         }
-
-        public static ServiceResult Success(string message)
-        {
-            return new ServiceResult { Status = true, Message = message };
-        }
     }
 }

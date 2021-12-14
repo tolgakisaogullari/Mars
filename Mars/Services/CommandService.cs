@@ -5,6 +5,9 @@ namespace Mars.Services
 {
     public class CommandService : ICommandService
     {
+        /// <summary>
+        /// Runs given commands for robot
+        /// </summary>
         public ServiceResult Run(Robot robot, Plateau plateau, List<char> commands)
         {
             foreach (var command in commands)
