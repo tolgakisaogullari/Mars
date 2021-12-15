@@ -1,4 +1,6 @@
 ﻿using FluentAssertions;
+using Mars.Models.Entities;
+using Mars.Models.Enums;
 using Mars.Services;
 using NUnit.Framework;
 using System.Linq;
@@ -56,7 +58,6 @@ namespace Mars.Tests
             var result = commandService.Run(robot, plateau, commands);
 
             result.Status.Should().BeTrue();
-
             robot.Coordinate.X.Should().Be(5);
             robot.Coordinate.Y.Should().Be(1);
             robot.Direction.Should().Be(Direction.East);

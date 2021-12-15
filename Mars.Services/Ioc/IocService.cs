@@ -1,7 +1,6 @@
 ﻿using Autofac;
-using Mars.Services;
 
-namespace Mars.Common
+namespace Mars.Services
 {
     public static class IocService
     {

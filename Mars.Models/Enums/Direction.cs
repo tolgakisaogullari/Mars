@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Mars
+namespace Mars.Models.Enums
 {
     public enum Direction
     {

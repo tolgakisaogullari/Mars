@@ -1,4 +1,4 @@
-﻿using Mars.Common;
+﻿using Mars.Models.Entities;
 using System.Collections.Generic;
 
 namespace Mars.Services

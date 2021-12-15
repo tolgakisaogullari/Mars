@@ -1,5 +1,6 @@
 ﻿using Autofac;
-using Mars.Common;
+using Mars.Models.Entities;
+using Mars.Models.Enums;
 using Mars.Services;
 using System;
 using System.Collections.Generic;

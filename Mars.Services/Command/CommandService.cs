@@ -1,4 +1,6 @@
 ﻿using Mars.Common;
+using Mars.Models.Entities;
+using Mars.Models.Enums;
 using System.Collections.Generic;
 
 namespace Mars.Services

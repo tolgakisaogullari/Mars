@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
@@ -10,7 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mars.Services\Mars.Services.csproj" />
+    <ProjectReference Include="..\Mars.Common\Mars.Common.csproj" />
+    <ProjectReference Include="..\Mars.Models\Mars.Models.csproj" />
   </ItemGroup>
 
 </Project>

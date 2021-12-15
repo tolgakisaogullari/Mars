@@ -1,4 +1,4 @@
-﻿namespace Mars.Common
+﻿namespace Mars.Services
 {
     public class ServiceResult
     {

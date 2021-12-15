@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Mars.Models.Enums;
+using System.Collections.Generic;
 
-namespace Mars
+namespace Mars.Models.Entities
 {
     public class Coordinate
     {

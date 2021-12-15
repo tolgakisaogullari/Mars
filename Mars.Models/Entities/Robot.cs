@@ -1,4 +1,6 @@
-﻿namespace Mars
+﻿using Mars.Models.Enums;
+
+namespace Mars.Models.Entities
 {
     public class Robot
     {
