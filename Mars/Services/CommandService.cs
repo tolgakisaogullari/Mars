@@ -16,6 +16,8 @@ namespace Mars.Services
                 {
                     case 'M':
                         {
+                            robot.Coordinate.SetForbiddenDirectionsForCoordinate(plateau.XRange, plateau.YRange);
+
                             if (robot.Coordinate.ForbiddenDirections.Contains(robot.Direction))
                             {
 
@@ -23,8 +25,6 @@ namespace Mars.Services
                             }
 
                             robot.Coordinate.UpdateCordinateByDirection(robot.Direction);
-
-                            robot.Coordinate.SetForbiddenDirectionsForCoordinate(plateau.XRange, plateau.YRange);
 
                             break;
                         }
