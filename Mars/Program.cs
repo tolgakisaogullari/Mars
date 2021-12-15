@@ -17,13 +17,10 @@ namespace Mars
             { "E", Direction.East },
             { "S", Direction.South }
         };
-        private static IContainer _container;
 
         static void Main(string[] args)
         {
-            _container = IocService.GetContainer();
-
-            using (ILifetimeScope scope = _container.BeginLifetimeScope())
+            using (ILifetimeScope scope = IocService.GetContainer().BeginLifetimeScope())
             {
                 var commandService = scope.Resolve<ICommandService>();
 
